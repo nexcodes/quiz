@@ -1,0 +1,7 @@
+.Toastify__toast-body {
+  direction: rtl !important;
+}
+a {
+  text-decoration: none;
+  color: #fff;
+}

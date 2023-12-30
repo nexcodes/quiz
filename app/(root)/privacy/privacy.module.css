@@ -1,0 +1,58 @@
+.bg {
+  background-color: #6e45e2;
+}
+.container {
+  position: relative;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4rem 1rem;
+  direction: rtl;
+  font-family: DG Bebo;
+  color: white;
+  display: flex;
+}
+
+.h1,
+.h2,
+.p {
+  font-family: DG Bebo;
+  text-align: center;
+}
+
+.p {
+  font-family: 300;
+  margin: 25px 0;
+  color: #ccc;
+}
+
+.main {
+  padding: 40px;
+}
+
+.a {
+  color: #fff;
+}
+
+.footer {
+  background-color: #15143e;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.pEn {
+  direction: ltr !important;
+}
+
+@media screen and (max-width: 600px) {
+  .footer {
+    position: static;
+  }
+}

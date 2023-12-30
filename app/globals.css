@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@800&display=swap");
+
+html {
+  scroll-behavior: smooth;
+}
+
+@font-face {
+  font-family: DG Bebo;
+  src: url('/fonts/DG-BeboT.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Almarai;
+  src: url('/fonts/Almarai-Regular.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: Almarai;
+  src: url('/fonts/Almarai-Bold.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: Almarai;
+  src: url('/fonts/Almarai-Light.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Almarai;
+  src: url('/fonts/Almarai-ExtraBold.ttf');
+  font-weight: 800;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  border: none;
+  z-index: 1;
+}
+
+.font-dg-bebo {
+  font-family: DG Bebo;
+}
+
+.font-almrai {
+  font-family: Almarai;
+}
+
+.font-sora {
+  font-family: Sora;
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}

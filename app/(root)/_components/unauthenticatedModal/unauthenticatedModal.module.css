@@ -1,0 +1,10 @@
+.wrapper {
+    padding: 1rem;
+}
+
+.message {
+  color: #6e45e2;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+}

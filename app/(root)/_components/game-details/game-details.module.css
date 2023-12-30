@@ -1,0 +1,155 @@
+.bg {
+  background-color: #6e45e2;
+}
+
+.container {
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 4rem 1rem;
+}
+
+.heading {
+  color: white;
+  text-align: right;
+  font-family: DG Bebo;
+  font-size: 3rem;
+  font-style: normal;
+  font-weight: 900;
+  line-height: 4rem;
+}
+
+.paragraph {
+  color: #fff;
+  text-align: right;
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 38px;
+  text-transform: lowercase;
+}
+
+.wrapper {
+  margin-top: 2rem;
+  padding-bottom: 4rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4rem 2rem;
+  align-items: center;
+}
+
+.groupChild {
+  position: absolute;
+  top: calc(50% - 81.21px);
+  left: calc(50% - 139.94px);
+  border-radius: 20px;
+  background-color: #19194d;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(4px);
+  width: 279.88px;
+  height: 210.53px;
+}
+.heading_6 {
+  position: absolute;
+  top: 192.09px;
+  left: calc(50% - 125.11px);
+  text-transform: lowercase;
+  display: inline-block;
+  width: 251.58px;
+  height: 50.32px;
+  font: 700;
+}
+.groupItem {
+  position: absolute;
+  top: 0px;
+  left: 54.49px;
+  width: 171.72px;
+  height: 171.72px;
+  object-fit: cover;
+}
+.layer1Icon {
+  position: absolute;
+  height: 64.67%;
+  width: 46.31%;
+  top: 0%;
+  right: 26.84%;
+  bottom: 35.33%;
+  left: 26.84%;
+  max-width: 100%;
+  overflow: hidden;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.rectangleParent {
+  position: absolute;
+  top: calc(50% - 129.31px);
+  left: calc(50% - 139.94px);
+  width: 279.88px;
+  height: 258.63px;
+}
+.groupParent {
+  position: relative;
+  width: 100%;
+  height: 258.63px;
+  text-align: center;
+  font-size: 30px;
+  color: #fff;
+  font-family: "DG Bebo";
+}
+
+.textCover {
+  position: absolute;
+  bottom: -20%;
+  left: 0;
+  right: 0;
+  box-sizing: border-box;
+}
+
+.text {
+  color: #fff;
+  text-align: center;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 38px;
+
+  text-transform: lowercase;
+}
+
+@media screen and (max-width: 1240px) {
+  .wrapper {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 2rem 1rem;
+  }
+  .heading {
+    font-size: 2rem;
+  }
+  .paragraph {
+    font-size: 1rem;
+  }
+  /* reverse the order for devices below 768px */
+  .order-1 {
+    order: 4;
+  }
+  .order-2 {
+    order: 3;
+  }
+  .order-3 {
+    order: 2;
+  }
+  .order-4 {
+    order: 1;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .wrapper {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}

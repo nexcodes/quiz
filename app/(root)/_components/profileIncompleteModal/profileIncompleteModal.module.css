@@ -1,0 +1,28 @@
+.wrapper {
+    padding: 1rem;
+}
+
+.message {
+  color: #6e45e2;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: #50aaf2;
+  color: white;
+  font-size: 1.25rem;
+  font-weight: 700;
+  width: 100%;
+  border: none;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.button:hover {
+  background-color: rgba(80, 170, 242, 0.8);
+}
