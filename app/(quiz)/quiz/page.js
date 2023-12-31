@@ -10,8 +10,10 @@ export default async function Quiz() {
   const quiz = await startQuiz(session.token);
 
   return (
+    <>
     <div className={styles.bg}>
       <QuizArea quiz={quiz} token={session.token} />
     </div>
+    </>
   );
 }

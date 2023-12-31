@@ -14,7 +14,7 @@ import timeUpAnimation from "@/animation/time-up.json";
 const QuizArea = ({ quiz: Quiz, token }) => {
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState(false);
-  const [animation, setAnimation] = useState(false);
+  const [animation, setAnimation] = useState(true);
   const [TimeUpAnimation, setTimeUpAnimation] = useState(false);
 
   if (!Quiz) {
@@ -24,7 +24,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   const [quiz, setQuiz] = useState(Quiz);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  const [time, setTime] = useState(quiz?.quizQuestionTimer);
+  const [time, setTime] = useState(quiz?.quizQuestionTimer + 1);
 
   useEffect(() => {
     const startTimer = () => {
@@ -46,11 +46,11 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   useEffect(() => {
     if (!selectedAnswer && time >= 0) return;
 
-    if (selectedAnswer) {
+    if (selectedAnswer && time >= 0) {
       setAnimation(true);
     }
 
-    if (time < 0) {
+    if (time < 0 && !selectedAnswer) {
       setTimeUpAnimation(true);
     }
 
@@ -71,7 +71,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       if (res.data.data?.currentQuestion?.id != 0) {
         setQuiz(res.data.data);
         setSelectedAnswer(null);
-        setTime(res.data.data?.quizQuestionTimer + 2);
+        setTime(res.data.data?.quizQuestionTimer + 1);
       } else {
         setSuccess(true);
         setData({
@@ -91,6 +91,15 @@ const QuizArea = ({ quiz: Quiz, token }) => {
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAnswer, token, time]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setAnimation(false);
+    }, 1000);
+
+    return () => clearTimeout(timeout);
+  }, []);
+
   if (success) {
     return (
       <Success
