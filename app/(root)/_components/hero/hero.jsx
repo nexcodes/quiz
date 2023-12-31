@@ -6,7 +6,6 @@ import styles from "./hero.module.css";
 import Circle, { Circle2 } from "@/components/icons/circle";
 import Image from "next/image";
 import clsx from "clsx";
-import { Spinner } from "@/components/spinner";
 import { useSession } from "next-auth/react";
 import axios from "axios";
 import ProfileIncompleteModal from "../profileIncompleteModal/profileIncompleteModal";
@@ -83,10 +82,11 @@ const Hero = () => {
             {!(session.status === "loading") && (
               <div className={styles.buttonWrapper}>
                 <button
+                  disabled={isLoading}
                   onClick={checkUser}
                   className={clsx("font-almrai", styles.button)}
                 >
-                  {isLoading ? <Spinner size={16} /> : "اشترك الآن"}
+                  {"اشترك الآن"}
                 </button>
               </div>
             )}

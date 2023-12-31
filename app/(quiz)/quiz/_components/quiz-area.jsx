@@ -7,9 +7,19 @@ import clsx from "clsx";
 import axios from "axios";
 import Success from "./success/success";
 
+import Lottie from "lottie-react";
+import StartAnimation from "@/animation/start.json";
+import timeUpAnimation from "@/animation/time-up.json";
+
 const QuizArea = ({ quiz: Quiz, token }) => {
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState(false);
+  const [animation, setAnimation] = useState(false);
+  const [timeUpAnimation, setTimeUpAnimation] = useState(false);
+
+  if (!Quiz) {
+    setAnimation(true);
+  }
 
   const [quiz, setQuiz] = useState(Quiz);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
@@ -34,7 +44,15 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   }, []);
 
   useEffect(() => {
-    if (!selectedAnswer && time > 0) return;
+    if (!selectedAnswer && time >= 0) return;
+
+    if (selectedAnswer) {
+      setAnimation(true);
+    }
+
+    if (time < 0) {
+      setTimeUpAnimation(true);
+    }
 
     const quizInteraction = async () => {
       const body = {
@@ -53,7 +71,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       if (res.data.data?.currentQuestion?.id != 0) {
         setQuiz(res.data.data);
         setSelectedAnswer(null);
-        setTime(res.data.data?.quizQuestionTimer);
+        setTime(res.data.data?.quizQuestionTimer + 2);
       } else {
         setSuccess(true);
         setData({
@@ -62,6 +80,8 @@ const QuizArea = ({ quiz: Quiz, token }) => {
           subtitle: res.data.data?.responseMessage,
         });
       }
+      setAnimation(false);
+      setTimeUpAnimation(false);
     };
 
     const timeout = setTimeout(() => {
@@ -82,31 +102,43 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>{"اختبار القدرات"}</div>
-      <div className={styles.wrapper}>
-        <span className={clsx("font-sora", styles.time)}>
-          {time >= 0 ? time : 0}
-        </span>
-        <div className={styles.question}>{quiz?.currentQuestion?.title}</div>
-        <div className={styles.answer}>
-          <div className={styles.box}>
-            {quiz?.currentQuestion?.answers?.map((answer) => (
-              <div
-                key={answer.answerId}
-                onClick={() => setSelectedAnswer(answer.answerId)}
-                className={clsx(
-                  styles.chips,
-                  selectedAnswer === answer.answerId && styles.activeChip
-                )}
-              >
-                {answer.answerTitle}
-              </div>
-            ))}
+    <>
+      {animation && (
+        <div className={styles.loading}>
+          <Lottie animationData={StartAnimation} />
+        </div>
+      )}
+      {timeUpAnimation && (
+        <div className={styles.loading}>
+          <Lottie animationData={timeUpAnimation} />
+        </div>
+      )}
+      <div className={styles.container}>
+        <div className={styles.header}>{"اختبار القدرات"}</div>
+        <div className={styles.wrapper}>
+          <span className={clsx("font-sora", styles.time)}>
+            {time >= 0 ? time : 0}
+          </span>
+          <div className={styles.question}>{quiz?.currentQuestion?.title}</div>
+          <div className={styles.answer}>
+            <div className={styles.box}>
+              {quiz?.currentQuestion?.answers?.map((answer) => (
+                <div
+                  key={answer.answerId}
+                  onClick={() => setSelectedAnswer(answer.answerId)}
+                  className={clsx(
+                    styles.chips,
+                    selectedAnswer === answer.answerId && styles.activeChip
+                  )}
+                >
+                  {answer.answerTitle}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

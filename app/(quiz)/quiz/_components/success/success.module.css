@@ -28,6 +28,14 @@
   margin-top: 1rem;
 }
 
+.margin {
+  margin: 4rem 0;
+}
+
+.margin > * + * {
+  margin-top: 1rem;
+}
+
 .heading {
   color: #fff;
   text-align: center;
@@ -63,5 +71,8 @@
 @media screen and (min-width: 768px) {
   .header {
     border-radius: 0.25rem;
+  }
+  .margin {
+    margin: 6rem 0;
   }
 }

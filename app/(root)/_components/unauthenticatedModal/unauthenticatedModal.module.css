@@ -5,7 +5,7 @@
 .message {
   color: #6e45e2;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 800;
 }
 
@@ -29,6 +29,6 @@
 
 @media screen and (max-width: 768px) {
   .message {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
   }
 }
