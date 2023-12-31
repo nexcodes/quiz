@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./success.module.css";
+import clsx from "clsx";
 
 export default function Success({ url, title, subtitle }) {
   return (

@@ -1,11 +1,11 @@
 .wrapper {
-    padding: 1rem;
+  padding: 1rem;
 }
 
 .message {
   color: #6e45e2;
   text-align: center;
-  font-size: 2.5rem;
+  font-size: 2rem;
   font-weight: 800;
 }
 
@@ -25,4 +25,10 @@
 
 .button:hover {
   background-color: rgba(80, 170, 242, 0.8);
+}
+
+@media screen and (max-width: 768px) {
+  .message {
+    font-size: 1.5rem;
+  }
 }

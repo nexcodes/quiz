@@ -14,7 +14,7 @@ const ProfileFormModal = ({ isOpen, onClose, user, countryList }) => {
           <br />
           {"بالشكل الصحيح"}
         </p>
-        <ProfileForm user={user} countryList={countryList} />
+        <ProfileForm user={user} countryList={countryList} onClose={onClose} />
       </div>
     </Modal>
   );

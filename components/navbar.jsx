@@ -23,7 +23,6 @@ const Navbar = () => {
       redirect: true,
     })
       .then((callback) => {
-        console.log(callback, "AuthForm success");
       })
       .catch((e) => {
         console.log(e, "AuthForm error");

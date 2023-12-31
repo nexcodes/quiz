@@ -13,7 +13,11 @@ BackendManager.Logout = async (token) => {
   return res;
 };
 BackendManager.DeactivateUser = async (token) => {
-  let res = await ApiCal.post("/UserPlayer/Deactivate", { token: token }, {});
+  let res = await ApiCal.post(
+    "/UserPlayer/Deactivate",
+    { token, version: 1 },
+    {}
+  );
 
   return res;
 };

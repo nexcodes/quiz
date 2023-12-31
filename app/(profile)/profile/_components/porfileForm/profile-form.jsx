@@ -6,9 +6,11 @@ import { useForm } from "react-hook-form";
 import styles from "./profile-form.module.css";
 import axios from "axios";
 import { Spinner } from "@/components/spinner";
+import { useRouter } from "next/navigation";
 
-const ProfileForm = ({ user, countryList }) => {
+const ProfileForm = ({ user, countryList, onClose }) => {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   const {
     register,
@@ -28,17 +30,26 @@ const ProfileForm = ({ user, countryList }) => {
   const onSubmit = async (values) => {
     try {
       setIsLoading(true);
+
       const body = {
         dto: {
           firstName: values.first_name,
           lastName: values.last_name,
           email: values.email,
-          phone: values.phone_country_code + values.phone_number,
           countryId: values.country,
         },
       };
 
+      if (values.phone_country_code + values.phone_number !== user?.phone) {
+        body.dto.phone = values.phone_country_code + values.phone_number;
+      }
+
       const res = await axios.post("/api/updateUser", body);
+
+      if (res.status === 200) {
+        onClose();
+        router.refresh();
+      }
     } catch (e) {
       console.log(e);
     } finally {

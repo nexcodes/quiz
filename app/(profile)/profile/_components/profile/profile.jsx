@@ -4,14 +4,17 @@ import React, { useState } from "react";
 import { CiSettings } from "react-icons/ci";
 import ProfileFormModal from "../profileFormModal/profile-form-modal";
 import { signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
 import styles from "./profile.module.css";
+import BackendManager from "@/components/BackendManager/home";
+import axios from "axios";
 
 const Profile = ({ user, countryList }) => {
   const [isOpen, setIsOpen] = useState(false);
   const session = useSession();
+  const router = useRouter();
 
   if (session?.status === "loading") {
     return <main className={styles.main}></main>;
@@ -22,42 +25,41 @@ const Profile = ({ user, countryList }) => {
   }
 
   const deactivateAccount = async () => {
-    BackendManager.DeactivateUser(session.data.token).then((res) => {
-      console.log(res);
-      if (res?.succeeded) {
-        toast.success("تم تعطيل الحساب بنجاح", {
-          position: "top-center",
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+    const res = await axios.post("/api/deactivateUser");
 
-        signOut();
-        redirect("/");
-      } else {
-        toast.warn("حدث خطأ أثناء إرسال النموذج", {
-          position: "top-center",
-          autoClose: false,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
-      }
-    });
+    if (res.data?.succeeded) {
+      toast.success("تم تعطيل الحساب بنجاح", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+
+      await signOut();
+
+      router.push("/");
+    } else {
+      toast.warn("حدث خطأ أثناء إرسال النموذج", {
+        position: "top-center",
+        autoClose: false,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+      });
+    }
   };
 
   const handelLogout = async () => {
-    BackendManager.Logout(session.data.token).then((res) => {
-      signOut();
-      redirect("/");
-    });
+    await BackendManager.Logout(session.data.token);
+    await signOut();
+    router.push("/");
   };
 
   return (

@@ -8,23 +8,28 @@ import axios from "axios";
 import Success from "./success/success";
 
 const QuizArea = ({ quiz: Quiz, token }) => {
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [quiz, setQuiz] = useState(Quiz);
   const [success, setSuccess] = useState(false);
+  const [data, setData] = useState(false);
+
+  const [quiz, setQuiz] = useState(Quiz);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const [time, setTime] = useState(quiz?.quizQuestionTimer);
 
   useEffect(() => {
     const startTimer = () => {
-      const interval = setInterval(() => {
+      var interval = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
-      }, 2000);
+      }, 1000);
 
       return () => clearInterval(interval);
     };
 
     startTimer();
 
+    if (time <= 0) {
+      clearInterval(interval);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -45,12 +50,13 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         body
       );
 
-      if (!res.data.data.responseMessage) {
+      if (res.data.data?.currentQuestion?.id != 0) {
         setQuiz(res.data.data);
         setSelectedAnswer(null);
         setTime(res.data.data?.quizQuestionTimer);
       } else {
-        setSuccess({
+        setSuccess(true);
+        setData({
           url: res.data.data?.responseIconUrl,
           title: res.data.data?.responseMessageTitle,
           subtitle: res.data.data?.responseMessage,
@@ -58,23 +64,30 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       }
     };
 
-    quizInteraction();
+    const timeout = setTimeout(() => {
+      quizInteraction();
+    }, 1000);
+
+    return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedAnswer, token, time]);
-
   if (success) {
-    <Success
-      url={success.url || ""}
-      title={success.title || ""}
-      subtitle={success.subtitle || ""}
-    />;
+    return (
+      <Success
+        url={data.url || ""}
+        title={data.title || ""}
+        subtitle={data.subtitle || ""}
+      />
+    );
   }
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>{"اختبار القدرات"}</div>
       <div className={styles.wrapper}>
-        <span className={clsx("font-sora", styles.time)}>{time}</span>
+        <span className={clsx("font-sora", styles.time)}>
+          {time >= 0 ? time : 0}
+        </span>
         <div className={styles.question}>{quiz?.currentQuestion?.title}</div>
         <div className={styles.answer}>
           <div className={styles.box}>
