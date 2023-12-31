@@ -15,7 +15,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState(false);
   const [animation, setAnimation] = useState(false);
-  const [timeUpAnimation, setTimeUpAnimation] = useState(false);
+  const [TimeUpAnimation, setTimeUpAnimation] = useState(false);
 
   if (!Quiz) {
     setAnimation(true);
@@ -108,7 +108,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
           <Lottie animationData={StartAnimation} />
         </div>
       )}
-      {timeUpAnimation && (
+      {TimeUpAnimation && (
         <div className={styles.loading}>
           <Lottie animationData={timeUpAnimation} />
         </div>
