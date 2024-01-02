@@ -2,15 +2,20 @@
   padding: 1rem;
 }
 
+.wrapper > * + * {
+  margin-top: 1rem;
+}
+
 .message {
   color: #6e45e2;
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
   font-weight: 800;
 }
 
 .oAuthButton {
-  margin: .5rem .25rem;
+  margin: 0.5rem 0.25rem;
   border-radius: 0.75rem;
   border: 2px solid #50aaf2;
   background: rgba(25, 25, 77);
@@ -29,6 +34,6 @@
 
 @media screen and (max-width: 768px) {
   .message {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }

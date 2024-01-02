@@ -17,7 +17,7 @@ const Hero = () => {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({text: "" , code: 0});
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenUnAuthModal, setIsOpenUnAuthModal] = useState(false);
 
@@ -35,8 +35,13 @@ const Hero = () => {
           token: session?.data?.token,
         });
 
+        console.log(res);
+
         if (!res.data.succeeded) {
-          setMessage(res.data.error.message);
+          setMessage({
+            text: res.data.error.message,
+            code: res.data.error.code
+          });
           setIsOpen(true);
           return;
         }

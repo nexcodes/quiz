@@ -2,15 +2,45 @@
   padding: 1rem;
 }
 
+.wrapper > * + * {
+  margin-top: 1rem;
+}
+
 .message {
   color: #6e45e2;
   text-align: center;
-  font-size: 1.75rem;
+  font-size: 1.25rem;
+  line-height: 1.5rem;
   font-weight: 800;
+}
+
+.cover {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button {
+  border-radius: 0.75rem;
+  background: #50aaf2;
+  box-shadow: 0px -4px 4px 0px #2475b7 inset,
+    0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  color: #fff;
+  font-family: DG Bebo;
+  font-size: 1.25rem;
+  font-weight: 900;
+  line-height: normal;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  text-align: center;
+}
+
+.button:hover {
+  background-color: rgba(80, 170, 242, 0.8);
 }
 
 @media screen and (max-width: 768px) {
   .message {
-    font-size: 1.25rem;
+    font-size: 1rem;
   }
 }

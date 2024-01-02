@@ -9,26 +9,23 @@ import Success from "./success/success";
 
 import Lottie from "lottie-react";
 import StartAnimation from "@/animation/start.json";
-import timeUpAnimation from "@/animation/time-up.json";
+import { TimeUpCircle } from "@/components/icons/circle";
 
 const QuizArea = ({ quiz: Quiz, token }) => {
   const [success, setSuccess] = useState(false);
   const [data, setData] = useState(false);
-  const [animation, setAnimation] = useState(true);
-  const [TimeUpAnimation, setTimeUpAnimation] = useState(false);
-
-  if (!Quiz) {
-    setAnimation(true);
-  }
+  const [animation, setAnimation] = useState(false);
+  const [timeUpAnimation, setTimeUpAnimation] = useState(false);
+  const [startUpAnimation, setStartUpAnimation] = useState(true);
 
   const [quiz, setQuiz] = useState(Quiz);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  const [time, setTime] = useState(quiz?.quizQuestionTimer + 1);
+  const [time, setTime] = useState(quiz?.quizQuestionTimer + 1); // this extra one second is the time of animation
 
   useEffect(() => {
     const startTimer = () => {
-      var interval = setInterval(() => {
+      const interval = setInterval(() => {
         setTime((prevTime) => prevTime - 1);
       }, 1000);
 
@@ -37,9 +34,6 @@ const QuizArea = ({ quiz: Quiz, token }) => {
 
     startTimer();
 
-    if (time <= 0) {
-      clearInterval(interval);
-    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -47,7 +41,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
     if (!selectedAnswer && time >= 0) return;
 
     if (selectedAnswer && time >= 0) {
-      setAnimation(true);
+      // setAnimation(true);
     }
 
     if (time < 0 && !selectedAnswer) {
@@ -60,7 +54,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         UserPlayerQuizId: quiz?.userPlayerQuizId,
         CurrentQuestionId: quiz?.currentQuestion?.id,
         SelectedAnswerId: selectedAnswer,
-        TimeToAnswer: quiz?.quizQuestionTimer,
+        TimeToAnswer: time,
       };
 
       const res = await axios.post(
@@ -69,9 +63,10 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       );
 
       if (res.data.data?.currentQuestion?.id != 0) {
+        // setQuiz(null); // this voids error in options
         setQuiz(res.data.data);
         setSelectedAnswer(null);
-        setTime(res.data.data?.quizQuestionTimer + 1);
+        setTime(res.data.data?.quizQuestionTimer);
       } else {
         setSuccess(true);
         setData({
@@ -94,7 +89,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      setAnimation(false);
+      setStartUpAnimation(false);
     }, 1000);
 
     return () => clearTimeout(timeout);
@@ -112,14 +107,30 @@ const QuizArea = ({ quiz: Quiz, token }) => {
 
   return (
     <>
-      {animation && (
+      {animation && <div className={styles.loading} />}
+      {startUpAnimation && (
         <div className={styles.loading}>
-          <Lottie animationData={StartAnimation} />
+          <div className={styles.startBox}>
+            <div className={styles.startCover}>
+              <Lottie
+                className={styles.startAnimation}
+                animationData={StartAnimation}
+              />
+              <h6 className={clsx("font-dg-bebo", styles.text)}>
+                {"!بدأ الوقت"}
+              </h6>
+            </div>
+          </div>
         </div>
       )}
-      {TimeUpAnimation && (
+      {timeUpAnimation && (
         <div className={styles.loading}>
-          <Lottie animationData={timeUpAnimation} />
+          <div className={styles.timeUpBox}>
+            <TimeUpCircle size={270} />
+            <h6 className={clsx("font-dg-bebo", styles.timeUpText)}>
+              {"!انتهى الوقت"}
+            </h6>
+          </div>
         </div>
       )}
       <div className={styles.container}>

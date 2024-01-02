@@ -23,9 +23,10 @@ const ProfileForm = ({ user, countryList, onClose }) => {
       first_name: user?.firstName || "",
       last_name: user?.lastName || "",
       email: user?.email || "",
-      phone_country_code: user?.phoneExtension || "",
-      phone_number: user?.phone?.split(user?.phoneExtension)[1] || "",
-      country: user?.countryId || "",
+      phone_country_code:
+        user?.phoneExtension || countryList[0].phoneCountryCode,
+      phone_number: user?.phone || "",
+      country: user?.countryId || countryList[0].id,
     },
   });
 
@@ -33,18 +34,30 @@ const ProfileForm = ({ user, countryList, onClose }) => {
     try {
       setIsLoading(true);
 
+      if (
+        !values.first_name ||
+        !values.last_name ||
+        !values.email ||
+        !values.phone_country_code ||
+        !values.phone_number ||
+        !values.country
+      ) {
+        toast.error("الرجاء تعبئة جميع الحقول");
+        return;
+      }
+
       const body = {
         dto: {
           firstName: values.first_name,
           lastName: values.last_name,
           email: values.email,
           countryId: values.country,
+          phone: values.phone_number,
+          phoneExtension: values.phone_country_code,
         },
       };
 
-      if (values.phone_country_code + values.phone_number !== user?.phone) {
-        body.dto.phone = values.phone_country_code + values.phone_number;
-      }
+      console.log(body);
 
       const res = await axios.post("/api/updateUser", body);
 
@@ -71,11 +84,19 @@ const ProfileForm = ({ user, countryList, onClose }) => {
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
       <div className={styles.wrapper}>
         <label className={styles.label}>{"الاسم الأول"}</label>
-        <input className={styles.input} {...register("first_name")} />
+        <input
+          minLength={2}
+          className={styles.input}
+          {...register("first_name")}
+        />
       </div>
       <div className={styles.wrapper}>
         <label className={styles.label}>{"الاسم الأخير"}</label>
-        <input className={styles.input} {...register("last_name")} />
+        <input
+          minLength={2}
+          className={styles.input}
+          {...register("last_name")}
+        />
       </div>
       <div className={styles.wrapper}>
         <label className={styles.label}>{"الايميل"}</label>
@@ -98,7 +119,13 @@ const ProfileForm = ({ user, countryList, onClose }) => {
                 </option>
               ))}
           </select>
-          <input className={styles.input} {...register("phone_number")} />
+          <input
+            type="number"
+            minLength={2}
+            maxLength={25}
+            className={styles.input}
+            {...register("phone_number")}
+          />
         </div>
       </div>
       <div className={styles.wrapper}>

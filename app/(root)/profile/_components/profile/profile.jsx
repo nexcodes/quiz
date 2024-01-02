@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import styles from "./profile.module.css";
 import BackendManager from "@/components/BackendManager/home";
 import axios from "axios";
+import logoutUser from "@/actions/logoutUser";
 
 const Profile = ({ user, countryList }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,36 +29,18 @@ const Profile = ({ user, countryList }) => {
     const res = await axios.post("/api/deactivateUser");
 
     if (res.data?.succeeded) {
-      toast.success("تم تعطيل الحساب بنجاح", {
-        position: "top-center",
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.success("تم تعطيل الحساب بنجاح");
 
       await signOut();
 
       router.push("/");
     } else {
-      toast.warn("حدث خطأ أثناء إرسال النموذج", {
-        position: "top-center",
-        autoClose: false,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-      });
+      toast.warn("حدث خطأ أثناء إرسال النموذج");
     }
   };
 
   const handelLogout = async () => {
-    await BackendManager.Logout(session.data.token);
+    await logoutUser(session.data.token);
     await signOut();
     router.push("/");
   };

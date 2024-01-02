@@ -16,6 +16,14 @@
 }
 
 .container > * + * {
+  margin-top: 1rem;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+.wrapper > * + * {
   margin-top: 0.5rem;
 }
 
@@ -51,6 +59,7 @@
 }
 
 .exit {
+  display: block;
   color: #ff5959;
   font-size: 1.25rem;
   font-weight: 700;
