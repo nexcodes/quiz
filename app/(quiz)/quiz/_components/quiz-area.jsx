@@ -59,6 +59,8 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         TimeToAnswer: TimeToAnswer,
       };
 
+      setQuiz(null); // this voids error in options
+
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_APP_URL}/api/quizInteraction`,
         body
@@ -79,8 +81,6 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       setAnimation(false);
       setTimeUpAnimation(false);
     };
-
-    setQuiz(null); // this voids error in options
 
     const timeout = setTimeout(() => {
       quizInteraction();
