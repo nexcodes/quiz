@@ -8,7 +8,7 @@ BackendManager.sendContactRequest = async (data) => {
 };
 
 BackendManager.Logout = async (token) => {
-  let res = await ApiCal.post("/UserPlayer/Logout", { token: token }, {});
+  let res = await ApiCal.post("/UserPlayer/Logout", { token, version: 1 }, {});
 
   return res;
 };

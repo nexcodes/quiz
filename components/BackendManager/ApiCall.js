@@ -5,18 +5,18 @@ const url = process.env.endPoint;
 const ApiCal = {};
 
 ApiCal.post = async (endPoint, header = {}, data) => {
-    const res = await axios({
-      method: "post",
-      url: url + endPoint,
-      headers: {
-        lang: "en",
-        device_info: "web",
-        Authorization: header?.token ? "Bearer " + header?.token : "",
-        "api-version": header?.version || 2,
-      },
-      data: data,
-    });
-    return res.data;
+  const res = await axios({
+    method: "post",
+    url: url + endPoint,
+    headers: {
+      lang: "en",
+      device_info: "web",
+      Authorization: header?.token ? "Bearer " + header?.token : "",
+      "api-version": header?.version || 2,
+    },
+    data: data,
+  });
+  return res.data;
 };
 
 ApiCal.get = async (endPoint, header = {}, systemType, country, currency) => {

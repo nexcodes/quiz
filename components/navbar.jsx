@@ -22,8 +22,7 @@ const Navbar = () => {
     signIn(action, {
       redirect: true,
     })
-      .then((callback) => {
-      })
+      .then((callback) => {})
       .catch((e) => {
         console.log(e, "AuthForm error");
       });
@@ -158,11 +157,13 @@ const Navbar = () => {
               >{`الشركة المصنعة`}</a>
             </li>
           </ul>
-          <div style={{ marginTop: "1rem" }}>
-            <PlayStore className="cursor-pointer" />
-            <Huawei className="cursor-pointer" />
-            <Apple className="cursor-pointer" />
-          </div>
+          <button
+            onClick={() => socialAction("google")}
+            className={styles.oAuthButton}
+          >
+            {"التسجيل"}
+            <GoogleLogo size={20} style={{ marginLeft: ".75rem" }} />
+          </button>
         </div>
       </div>
     </>
