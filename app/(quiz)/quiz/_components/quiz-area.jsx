@@ -59,17 +59,21 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         TimeToAnswer: TimeToAnswer,
       };
 
-      setQuiz(null); // this voids error in options
-
       const res = await axios.post(
         `${process.env.NEXT_PUBLIC_APP_URL}/api/quizInteraction`,
         body
       );
 
       if (res.data.data?.currentQuestion?.id != 0) {
-        setQuiz(res.data.data);
+        setQuiz(null); // this voids error in options
+        const timeout = setTimeout(() => {
+          setQuiz(res.data.data);
+        }, 500);
         setSelectedAnswer(null);
         setTime(res.data.data?.quizQuestionTimer);
+        setAnimation(false);
+        setTimeUpAnimation(false);
+        return () => clearTimeout(timeout);
       } else {
         setSuccess(true);
         setData({
@@ -77,14 +81,14 @@ const QuizArea = ({ quiz: Quiz, token }) => {
           title: res.data.data?.responseMessageTitle,
           subtitle: res.data.data?.responseMessage,
         });
+        setAnimation(false);
+        setTimeUpAnimation(false);
       }
-      setAnimation(false);
-      setTimeUpAnimation(false);
     };
 
     const timeout = setTimeout(() => {
       quizInteraction();
-    }, 1500);
+    }, 1000);
 
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
