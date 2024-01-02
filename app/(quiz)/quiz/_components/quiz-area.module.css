@@ -58,7 +58,7 @@
   padding: 1rem 2rem;
   width: 100%;
   text-align: right;
-  min-height: 10rem;
+  min-height: 15rem;
 }
 
 .box {
@@ -120,7 +120,7 @@
   background-color: transparent;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
 }
 
 .startBox {
