@@ -9,6 +9,7 @@ import Success from "./success/success";
 
 import Lottie from "lottie-react";
 import StartAnimation from "@/animation/start.json";
+import CircleAnimation from "@/animation/circle.json";
 import { TimeUpCircle } from "@/components/icons/circle";
 
 const QuizArea = ({ quiz: Quiz, token }) => {
@@ -16,6 +17,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   const [data, setData] = useState(false);
   const [animation, setAnimation] = useState(false);
   const [timeUpAnimation, setTimeUpAnimation] = useState(false);
+  const [answerTime, setAnswerTime] = useState(false);
   const [startUpAnimation, setStartUpAnimation] = useState(true);
 
   const [quiz, setQuiz] = useState(Quiz);
@@ -114,7 +116,16 @@ const QuizArea = ({ quiz: Quiz, token }) => {
 
   return (
     <>
-      {animation && <div className={styles.loading} />}
+      {animation && (
+        <div className={styles.loading}>
+          <div className={styles.circleBox}>
+            <Lottie
+              className={styles.circleAnimation}
+              animationData={CircleAnimation}
+            />
+          </div>
+        </div>
+      )}
       {startUpAnimation && (
         <div className={styles.loading}>
           <div className={styles.startBox}>
@@ -146,7 +157,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         <div className={styles.header}>{"اختبار القدرات"}</div>
         <div className={styles.wrapper}>
           <span className={clsx("font-sora", styles.time)}>
-            {time >= 0 ? time : 0}
+            {answerTime ? answerTime : time >= 0 ? time : 0}
           </span>
           <div className={styles.question}>{quiz?.currentQuestion?.title}</div>
           <div className={styles.answer}>
@@ -154,7 +165,10 @@ const QuizArea = ({ quiz: Quiz, token }) => {
               {quiz?.currentQuestion?.answers?.map((answer) => (
                 <div
                   key={answer.answerId}
-                  onClick={() => setSelectedAnswer(answer.answerId)}
+                  onClick={() => {
+                    setAnswerTime(time);
+                    setSelectedAnswer(answer.answerId);
+                  }}
                   className={clsx(
                     styles.chips,
                     selectedAnswer === answer.answerId && styles.activeChip
