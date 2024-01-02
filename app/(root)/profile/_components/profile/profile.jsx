@@ -42,11 +42,11 @@ const Profile = ({ user, countryList }) => {
   const handelLogout = async () => {
     try {
       await logoutUser(session.data.token);
-      await signOut();
       router.push("/");
     } catch (e) {
       console.log(e);
     }
+    await signOut();
   };
 
   return (
