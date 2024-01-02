@@ -56,7 +56,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         UserPlayerQuizId: quiz?.userPlayerQuizId,
         CurrentQuestionId: quiz?.currentQuestion?.id,
         SelectedAnswerId: selectedAnswer,
-        TimeToAnswer: answerTime,
+        TimeToAnswer: answerTime || 0,
       };
 
       const res = await axios.post(
