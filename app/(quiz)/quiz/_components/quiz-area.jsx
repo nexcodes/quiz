@@ -119,9 +119,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
                 animationData={StartAnimation}
               />
               <h6 className={clsx("font-dg-bebo", styles.text)}>
-                {"انتهى"}
-                <br />
-                {"!الوقت"}
+                {"!بدأ الوقت"}
               </h6>
             </div>
           </div>
@@ -132,7 +130,9 @@ const QuizArea = ({ quiz: Quiz, token }) => {
           <div className={styles.timeUpBox}>
             <TimeUpCircle size={270} />
             <h6 className={clsx("font-dg-bebo", styles.timeUpText)}>
-              {"!انتهى الوقت"}
+              {"انتهى"}
+              <br />
+              {"!الوقت"}
             </h6>
           </div>
         </div>
