@@ -40,9 +40,13 @@ const Profile = ({ user, countryList }) => {
   };
 
   const handelLogout = async () => {
-    await logoutUser(session.data.token);
-    await signOut();
-    router.push("/");
+    try {
+      await logoutUser(session.data.token);
+      await signOut();
+      router.push("/");
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
