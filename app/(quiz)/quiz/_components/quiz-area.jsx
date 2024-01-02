@@ -40,8 +40,10 @@ const QuizArea = ({ quiz: Quiz, token }) => {
   useEffect(() => {
     if (!selectedAnswer && time >= 0) return;
 
+    const TimeToAnswer = time >= 0 ? time : 0;
+
     if (selectedAnswer && time >= 0) {
-      // setAnimation(true);
+      setAnimation(true);
     }
 
     if (time < 0 && !selectedAnswer) {
@@ -54,7 +56,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
         UserPlayerQuizId: quiz?.userPlayerQuizId,
         CurrentQuestionId: quiz?.currentQuestion?.id,
         SelectedAnswerId: selectedAnswer,
-        TimeToAnswer: time,
+        TimeToAnswer: TimeToAnswer,
       };
 
       const res = await axios.post(
@@ -117,7 +119,9 @@ const QuizArea = ({ quiz: Quiz, token }) => {
                 animationData={StartAnimation}
               />
               <h6 className={clsx("font-dg-bebo", styles.text)}>
-                {"!بدأ الوقت"}
+                {"انتهى"}
+                <br />
+                {"!الوقت"}
               </h6>
             </div>
           </div>
