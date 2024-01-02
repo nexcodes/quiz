@@ -46,7 +46,7 @@
   padding: 1rem 2rem;
   width: 100%;
   text-align: right;
-  min-height: 6rem;
+  min-height: 10rem;
 }
 
 .answer {
@@ -58,7 +58,7 @@
   padding: 1rem 2rem;
   width: 100%;
   text-align: right;
-  min-height: 15rem;
+  min-height: 18rem;
 }
 
 .box {
