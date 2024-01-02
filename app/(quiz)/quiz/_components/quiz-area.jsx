@@ -65,7 +65,6 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       );
 
       if (res.data.data?.currentQuestion?.id != 0) {
-        setQuiz(null); // this voids error in options
         setQuiz(res.data.data);
         setSelectedAnswer(null);
         setTime(res.data.data?.quizQuestionTimer);
@@ -81,9 +80,11 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       setTimeUpAnimation(false);
     };
 
+    setQuiz(null); // this voids error in options
+
     const timeout = setTimeout(() => {
       quizInteraction();
-    }, 1000);
+    }, 1500);
 
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
