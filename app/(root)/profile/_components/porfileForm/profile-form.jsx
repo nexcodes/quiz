@@ -46,6 +46,11 @@ const ProfileForm = ({ user, countryList, onClose }) => {
         return;
       }
 
+      if (values.phone_number.length > 25) {
+        toast.error("رقم الهاتف غير صحيح");
+        return;
+      }
+
       const body = {
         dto: {
           firstName: values.first_name,
@@ -56,8 +61,6 @@ const ProfileForm = ({ user, countryList, onClose }) => {
           phoneExtension: values.phone_country_code,
         },
       };
-
-      console.log(body);
 
       const res = await axios.post("/api/updateUser", body);
 

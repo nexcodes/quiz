@@ -7,16 +7,25 @@
   max-width: 24rem;
   margin-left: auto;
   margin-right: auto;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
 }
 
 .container > * + * {
   margin-top: 1rem;
+}
+
+.animation {
+  width: 50%;
+  margin-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .wrapper {

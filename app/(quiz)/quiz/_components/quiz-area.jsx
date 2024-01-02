@@ -65,7 +65,7 @@ const QuizArea = ({ quiz: Quiz, token }) => {
       );
 
       if (res.data.data?.currentQuestion?.id != 0) {
-        // setQuiz(null); // this voids error in options
+        setQuiz(null); // this voids error in options
         setQuiz(res.data.data);
         setSelectedAnswer(null);
         setTime(res.data.data?.quizQuestionTimer);

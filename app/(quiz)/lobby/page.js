@@ -11,8 +11,8 @@ export default function Lobby() {
   return (
     <div className={styles.bg}>
       <div className={styles.container}>
-        <Lottie animationData={circle} />
         <div className={styles.wrapper}>
+          <Lottie className={styles.animation} animationData={circle} />
           <h3 className={styles.heading}>
             {"عند الضغط على “ ابدأ الآن “ ستبدا اللعبة فوراً"}
           </h3>
