@@ -157,13 +157,23 @@ const Navbar = () => {
               >{`الشركة المصنعة`}</a>
             </li>
           </ul>
-          <button
-            onClick={() => socialAction("google")}
-            className={styles.oAuthButton}
-          >
-            {"التسجيل"}
-            <GoogleLogo size={20} style={{ marginLeft: ".75rem" }} />
-          </button>
+          {session?.data?.token ? (
+            <button className={styles.oAuthButton}>
+              <Link className={styles.links} href="/profile">
+                {"حسابي"}
+              </Link>
+            </button>
+          ) : (
+            <>
+              <button
+                onClick={() => socialAction("google")}
+                className={styles.oAuthButton}
+              >
+                {"التسجيل"}
+                <GoogleLogo size={20} style={{ marginLeft: ".75rem" }} />
+              </button>
+            </>
+          )}
         </div>
       </div>
     </>
